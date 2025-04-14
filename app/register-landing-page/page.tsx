@@ -73,7 +73,7 @@ export default function RegisterPage() {
                 <h2 className={styles.cardTitle}>Course Catalog</h2>
                 <p className={styles.cardDescription}>
                   Browse for specific courses, search for deparment specific classes, sort by school or requiements, and find awesome
-                   courses we offer here at USFCA! Learn more about the wide variety of curriculum offered in our school. 
+                  courses we offer here at USFCA! Learn more about the wide variety of curriculum offered in our school.
                 </p>
               </div>
               <div className={styles.iconContainer}>
@@ -90,7 +90,7 @@ export default function RegisterPage() {
             {/* Suggest Classes */}
             <Link href="/register-landing-page/recommendations" className={styles.card}>
               <div className={styles.cardContent}>
-                <h2 className={styles.cardTitle}>Class Reccomendations</h2>
+                <h2 className={styles.cardTitle}>Class Recommendations</h2>
                 <p className={styles.cardDescription}>
                   Search and register for your classes!
                 </p>
