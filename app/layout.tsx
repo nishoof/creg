@@ -3,6 +3,7 @@ import "./globals.css";
 import styles from "./page.module.css";
 import type { Metadata } from "next";
 import { ChatProvider } from "../context/ChatContext";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: 'creg',
@@ -31,6 +32,7 @@ export default function RootLayout({
             <ChatProvider>{children}</ChatProvider>
           </main>
         </div>
+        <Analytics />
       </body>
     </html>
   )
