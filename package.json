@@ -1,17 +1,14 @@
 {
-  "name": "c-reg-web",
+  "name": "creg",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^1.3.7",
-    "@radix-ui/react-slot": "^1.1.2",
-    "@tailwindcss/postcss": "^4.1.3",
     "@vercel/analytics": "^1.5.0",
     "ai": "^4.3.0",
     "class-variance-authority": "^0.7.1",
@@ -23,18 +20,12 @@
     "openai": "^4.91.1",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.1.0",
-    "tailwindcss": "^4.1.3"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@shadcn/ui": "^0.0.4",
     "@types/node": "^20",
-    "@types/react": "^19.1.0",
+    "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.2.4",
     "typescript": "^5"
   }
 }

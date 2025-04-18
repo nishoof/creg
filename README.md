@@ -1,4 +1,4 @@
-# c-reg
+# creg
 
 New Student Registration Assistance
 - Guide for high school students transitioning to USF
