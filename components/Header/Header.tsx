@@ -1,12 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Image from "next/image"; // Import Image component
-import styles from "../app/page.module.css";
+import styles from "./Header.module.css";
 
-export default function Header() {
+export function Header() {
   const [username, setUsername] = useState<string | null>(null);
   const router = useRouter();
 

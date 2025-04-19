@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
-import Header from "@/components/Header";
+import { Header } from "@/components/Header";
 
 interface Section {
   _id: string;
@@ -326,11 +326,10 @@ export default function RegisterForClasses() {
                               </p>
                             </div>
                             <div
-                              className={`${styles["enrollment-badge"]} ${
-                                section.enrollment <= section.capacity
-                                  ? styles.full
-                                  : ""
-                              }`}
+                              className={`${styles["enrollment-badge"]} ${section.enrollment <= section.capacity
+                                ? styles.full
+                                : ""
+                                }`}
                             >
                               {section.capacity}/{section.enrollment} Enrolled
                             </div>
@@ -370,14 +369,13 @@ export default function RegisterForClasses() {
                         </div>
                         <div className={styles["section-actions"]}>
                           <button
-                            className={`${styles["add-button"]} ${
-                              section.enrollment <= section.capacity ||
+                            className={`${styles["add-button"]} ${section.enrollment <= section.capacity ||
                               selectedSections.some(
                                 (s) => s._id === section._id
                               )
-                                ? styles.disabled
-                                : ""
-                            }`}
+                              ? styles.disabled
+                              : ""
+                              }`}
                             onClick={() => handleAddSection(section)}
                             disabled={
                               section.enrollment <= section.capacity ||
@@ -460,9 +458,8 @@ export default function RegisterForClasses() {
               </div>
               <div className={styles["card-footer"]}>
                 <button
-                  className={`${styles["enroll-button"]} ${
-                    selectedSections.length === 0 ? styles.disabled : ""
-                  }`}
+                  className={`${styles["enroll-button"]} ${selectedSections.length === 0 ? styles.disabled : ""
+                    }`}
                   onClick={handleEnroll}
                   disabled={selectedSections.length === 0}
                 >

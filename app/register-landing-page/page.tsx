@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Header from "@/components/Header";
+import { Header } from "@/components/Header";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./page.module.css";
-import ChatBot from "@/components/ChatBot";
+import { ChatBot } from "@/components/ChatBot";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState<string | null>(null);

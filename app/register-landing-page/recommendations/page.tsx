@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation" // For navigation
 import { getUserCredit, type UserCredit, type Test } from "@/util/get-user-credit"
 import { getComputerScienceCourse, getMathCourse } from "@/util/get-courses-by-placement"
 import { getCsMajorCourses, getUSFCourseEquivalentsFromAP } from "@/util/get-courses-by-ap"
-import Header from "@/components/Header"
-import ChatBot from "@/components/ChatBot"
+import { Header } from "@/components/Header/"
+import { ChatBot } from "@/components/ChatBot"
 import styles from "./page.module.css"
 
 export default function Recommendations() {

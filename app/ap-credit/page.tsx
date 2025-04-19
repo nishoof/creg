@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import ChatBot from "@/components/ChatBot";
+import { Header } from "@/components/Header";
+import { ChatBot } from "@/components/ChatBot";
 import styles from "./page.module.css";
 import { apTestCreditMap } from "@/util/get-courses-by-ap";
 

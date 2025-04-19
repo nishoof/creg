@@ -1,5 +1,5 @@
-import Header from "@/components/Header";
-import ChatBot from "@/components/ChatBot";
+import { Header } from "@/components/Header";
+import { ChatBot } from "@/components/ChatBot";
 import styles from "./page.module.css";
 import Link from "next/link";
 
