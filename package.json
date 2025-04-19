@@ -10,24 +10,17 @@
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
-    "ai": "^4.3.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
     "dotenv": "^16.4.7",
-    "lucide-react": "^0.487.0",
     "mongodb": "^6.15.0",
     "next": "^15.2.4",
     "openai": "^4.91.1",
-    "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9.25.0",
     "@eslint/eslintrc": "^3.3.1",
+    "@types/react": "^19",
+    "eslint": "^9.25.0",
     "eslint-config-next": "^15.3.1",
     "typescript": "^5"
   }
