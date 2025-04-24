@@ -1,31 +1,25 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+}
 
-  --primary-color: #00543c;
-  --primary-color-dark: #004633;
-  --text-color: #333;
-  --text-color-light: #666;
-  --background-color: #ffffff;
-  --secondary-background: #f5f5f5;
-  --secondary-hover: #e0e0e0;
-  --max-width: 1200px;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  color: var(--text-color);
-  background-color: var(--background-color);
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -41,19 +35,8 @@ a {
   text-decoration: none;
 }
 
-h2 {
-  margin-top: 30px;
-  margin-bottom: 15px;
-}
-
-h3 {
-  margin-top: 15px;
-  margin-bottom: 12px;
-}
-
-.container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 20px;
-  width: 100%;
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
 }
