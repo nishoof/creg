@@ -1,12 +1,13 @@
 import Image from "next/image";
-// import { Header } from "@/components/Header";
-// import { ChatBot } from "@/components/ChatBot";
 import styles from "./page.module.css";
 import Link from "next/link";
+import { Header } from "@/components/Header";
 
 export default function Home() {
   return (
     <>
+      <Header />
+
       <Image
         src="/USFCABackground.jpg"
         alt="Background"
