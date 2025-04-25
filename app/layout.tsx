@@ -1,3 +1,5 @@
+import { ChatBot } from "@/components/ChatBot";
+import { Header } from "@/components/Header";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
@@ -20,6 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={openSans.className}>
+        <Header />
+        <ChatBot />
         {children}
       </body>
     </html>
