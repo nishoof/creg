@@ -36,13 +36,26 @@ body {
 }
 
 h2 {
+  margin-top: 1em;
   margin-bottom: 0.5em;
+}
+
+h3 {
+  margin-top: 0.8em;
 }
 
 a {
   color: var(--primary-color);
   text-decoration: none;
   font-weight: bold;
+}
+
+ul {
+  padding-left: 0;
+}
+
+li {
+  margin: 0 1em;
 }
 
 .background {
@@ -97,6 +110,7 @@ a {
 .infoCard h2,
 .infoCard h3 {
   color: var(--primary-color);
+  margin-top: 0em;
   margin-bottom: 0.6em;
 }
 
