@@ -1,0 +1,24 @@
+.majorList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  list-style-type: none;
+}
+
+.majorItem {
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.majorLink {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: color 0.2s ease;
+}
+
+.majorName {
+  font-weight: 500;
+}

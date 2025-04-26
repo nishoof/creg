@@ -71,8 +71,10 @@ a {
 
 .titleSection {
   text-align: center;
-  margin-bottom: 5em;
   line-height: 1.6;
+  width: 75%;
+  margin: 0 auto;
+  margin-bottom: 5em;
 }
 
 .titleSection h1 {
@@ -83,9 +85,54 @@ a {
   font-size: 1.1em;
 }
 
+.infoCard {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.infoCard h2,
+.infoCard h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.6em;
+}
+
+.infoCard p {
+  margin-bottom: 1em;
+}
+
+.infoCard a {
+  margin-top: auto;
+}
+
+.videoWrapper {
+  position: relative;
+  /* 16:9 aspect ratio */
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 @media (hover: hover) and (pointer: fine) {
   a:hover {
     color: var(--primary-color-dark);
     text-decoration: underline;
+  }
+
+  .infoCard:hover {
+    transform: translateY(-5px);
   }
 }
