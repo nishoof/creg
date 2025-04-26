@@ -36,6 +36,7 @@
 .title {
   font-size: 3rem;
   font-weight: bold;
+  color: var(--background);
   line-height: 2;
   animation-delay: 0.2s;
 }
@@ -76,9 +77,13 @@
 @media (hover: hover) and (pointer: fine) {
   .primaryCta:hover {
     background-color: var(--primary-color-dark);
+    color: white;
+    text-decoration: none;
   }
 
   .secondaryCta:hover {
     background-color: var(--secondary-hover);
+    color: var(--text-color);
+    text-decoration: none;
   }
 }

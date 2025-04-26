@@ -24,7 +24,7 @@ export default function Home() {
           </p>
 
           <div className={styles.ctas}>
-            <Link href="/first-years" className={styles.primaryCta}>
+            <Link href="/first-year-info" className={styles.primaryCta}>
               First Year Guide
             </Link>
             <Link href="/register-landing-page" className={styles.secondaryCta}>

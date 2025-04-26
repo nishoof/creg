@@ -31,7 +31,7 @@ export function Header() {
       </Link>
 
       <nav className={styles.nav}>
-        <Link href="/first-years" className={styles.navButton}>
+        <Link href="/first-year-info" className={styles.navButton}>
           First Year Information
         </Link>
 

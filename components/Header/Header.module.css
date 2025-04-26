@@ -48,8 +48,14 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
+    .logo:hover {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
     .navButton:hover {
         background-color: var(--secondary-background);
         color: var(--primary-color);
+        text-decoration: none;
     }
 }
