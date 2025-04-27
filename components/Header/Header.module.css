@@ -38,11 +38,6 @@
     transition: all 0.2s ease;
 }
 
-.navButton:hover {
-    background-color: var(--secondary-background);
-    color: var(--primary-color);
-}
-
 .username {
     padding: 10px 16px;
     border-radius: 6px;
@@ -50,4 +45,17 @@
     text-decoration: none;
     color: var(--text-color);
     cursor: default;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .logo:hover {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+    .navButton:hover {
+        background-color: var(--secondary-background);
+        color: var(--primary-color);
+        text-decoration: none;
+    }
 }

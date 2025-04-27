@@ -1,244 +1,89 @@
-.page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+.landingContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Header Styles */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background-color: var(--background-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-
-    /* Flexbox styles */
-    display: flex;
-    align-items: center;
-    /* Align items vertically in the center */
-    justify-content: space-between;
-    padding: 0 20px;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-decoration: none;
-}
-
-.nav {
-    display: flex;
-    gap: 16px;
-    margin-left: auto;
-}
-
-.navButton {
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-weight: 500;
-    text-decoration: none;
-    color: var(--text-color);
-    transition: all 0.2s ease;
-}
-
-.navButton:hover {
-    background-color: var(--secondary-background);
-    color: var(--primary-color);
-}
-
-.username {
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-weight: 500;
-    text-decoration: none;
-    color: var(--text-color);
-    cursor: default;
-}
-
-/* Main Content Styles */
 .main {
-    flex: 1;
-    margin: 70px auto;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.hero {
-    padding: 60px 0;
-    text-align: center;
+/* Animation */
+@keyframes fadeDropIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title,
+.subtitle {
+  animation: fadeDropIn 0.8s ease-out forwards;
+  opacity: 0;
 }
 
 .title {
-    font-size: 48px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: #ffffff;
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--background);
+  line-height: 2;
+  animation-delay: 0.2s;
 }
 
 .subtitle {
-    font-size: 20px;
-    color: #d0ff00ca;
-    margin-bottom: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+  font-size: 1.2rem;
+  color: var(--green-2);
+  line-height: 1.5;
+  animation-delay: 0.4s;
 }
 
 .ctas {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    margin-top: 32px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 32px;
 }
 
 .primaryCta,
 .secondaryCta {
-    padding: 14px 28px;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s ease;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
 
 .primaryCta {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.primaryCta:hover {
-    background-color: var(--primary-color-dark);
+  background-color: var(--primary-color);
+  color: white;
 }
 
 .secondaryCta {
-    background-color: var(--secondary-background);
-    color: var(--text-color);
+  background-color: var(--secondary-background);
+  color: var(--text-color);
 }
 
-.secondaryCta:hover {
-    background-color: var(--secondary-hover);
-}
-
-.majorSection {
-    margin: 2rem 0;
-}
-
-.majorGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-.majorCard {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.majorCard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.majorLink {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1.5rem;
-    text-decoration: none;
-    color: #333;
-    height: 100%;
-    width: 100%;
-}
-
-.majorIcon {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
-}
-
-.majorName {
-    font-weight: 500;
-    font-size: 1.1rem;
-    text-align: center;
-}
-
-/* background styles */
-.heroSection {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.heroImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.heroOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
-    /* optional dark overlay */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.heroText {
+@media (hover: hover) and (pointer: fine) {
+  .primaryCta:hover {
+    background-color: var(--primary-color-dark);
     color: white;
-    font-size: 4rem;
-    font-family: serif;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-}
+    text-decoration: none;
+  }
 
-
-
-
-/* Animation */
-@keyframes fadeDropIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animateFadeDrop {
-    animation: fadeDropIn 0.8s ease-out forwards;
-    opacity: 0;
-}
-
-.delay-1 {
-    animation-delay: 0.2s;
-}
-
-.delay-2 {
-    animation-delay: 0.4s;
-}
-
-.delay-3 {
-    animation-delay: 0.6s;
+  .secondaryCta:hover {
+    background-color: var(--secondary-hover);
+    color: var(--text-color);
+    text-decoration: none;
+  }
 }

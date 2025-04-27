@@ -59,6 +59,7 @@
     border-radius: 18px;
     max-width: 80%;
     word-break: break-word;
+    color: black;
 }
 
 .userMessage {
@@ -85,6 +86,8 @@
     border: 1px solid #ddd;
     border-radius: 20px;
     outline: none;
+    background-color: white;
+    color: black;
 }
 
 .sendButton {
