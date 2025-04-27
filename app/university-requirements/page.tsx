@@ -4,7 +4,6 @@ export default function UniversityRequirements() {
   return (
     <div className="page">
       <main className="main">
-
         <div className="titleSection">
           <h1>University Graduation Requirements</h1>
           <p>Watch two short videos on the graduation requirements and core curriculum</p>
@@ -39,7 +38,6 @@ export default function UniversityRequirements() {
             </div>
           </div>
         </div>
-
       </main >
     </div >
   );

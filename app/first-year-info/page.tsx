@@ -5,7 +5,6 @@ export default function FirstYears() {
   return (
     <div className="page">
       <main className="main">
-
         <div className="titleSection">
           <h1>First Year Student Guide</h1>
           <p>Everything you need to know to start your journey at USF</p>
@@ -51,9 +50,9 @@ export default function FirstYears() {
             <h3>Course Recommendations</h3>
             <p>See what classes you should take based on your placement test results and the AP tests you have taken.</p>
             <Link className="link" href="/course-recommendations">View Recommendations</Link>
+            {/* TODO: make page with recommendations and update this link ^ */}
           </div>
         </div>
-
       </main >
     </div >
   );

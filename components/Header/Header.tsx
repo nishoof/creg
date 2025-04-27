@@ -35,10 +35,6 @@ export function Header() {
           First Year Information
         </Link>
 
-        <Link href="/register-landing-page" className={styles.navButton}>
-          Course Registration
-        </Link>
-
         <Link href="/ap-tests" className={styles.navButton}>
           AP Credit
         </Link>
@@ -47,8 +43,9 @@ export function Header() {
           Placement Tests
         </Link>
 
+
         {/* Login / Logout */}
-        {username ? (
+        {/* {username ? (
           <Link href="/" onClick={handleLogout} className={styles.navButton}>
             Logout
           </Link>
@@ -56,10 +53,11 @@ export function Header() {
           <Link href="/login" className={styles.navButton}>
             Login
           </Link>
-        )}
+        )} */}
 
         {/* Username (only shown if logged in)  */}
-        {username && <span className={styles.username}>{username}</span>}
+        {/* {username && <span className={styles.username}>{username}</span>} */}
+
       </nav>
     </header>
   );
