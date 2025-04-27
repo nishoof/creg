@@ -3,6 +3,7 @@
 import { ChangeEventHandler, useEffect, useState } from "react";
 import { apTestCreditMap, apTests } from "./ap-credits";
 import styles from "./page.module.css";
+import { useSession } from "next-auth/react";
 
 // Determines the AP credit result based on the test's name and score
 function determineCreditResult(testName: string, testScore: number) {
@@ -33,6 +34,9 @@ function determineCreditResult(testName: string, testScore: number) {
 }
 
 export default function APTests() {
+  const { data: session } = useSession();
+  console.log("session:", session);
+
   const [testName, setTestName] = useState<string>(apTests[0]);
   const [testScore, setTestScore] = useState<number>(1);
   const [earnedCredit, setEarnedCredit] = useState<string>("");

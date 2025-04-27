@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./Header.module.css";
+import { signIn } from "next-auth/react";
 
 export function Header() {
   const router = useRouter();
@@ -54,6 +55,11 @@ export function Header() {
             Login
           </Link>
         )} */}
+
+        <button
+          onClick={() => signIn("google", { callbackUrl: "/" })}>
+          Sign in
+        </button>
 
         {/* Username (only shown if logged in)  */}
         {/* {username && <span className={styles.username}>{username}</span>} */}
