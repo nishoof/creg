@@ -1,20 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import styles from "./Header.module.css";
-import { signIn } from "next-auth/react";
+import Account from "./Account";
 
 export function Header() {
-  const router = useRouter();
-  const username = typeof window !== "undefined" ? localStorage.getItem("currentUser") : null;
-
-  const handleLogout = () => {
-    localStorage.removeItem("currentUser");
-    router.push("/");
-  };
-
   return (
     <header className={styles.header}>
       <Link href="/">
@@ -44,6 +33,8 @@ export function Header() {
           Placement Tests
         </Link>
 
+        <Account />
+
 
         {/* Login / Logout */}
         {/* {username ? (
@@ -56,10 +47,6 @@ export function Header() {
           </Link>
         )} */}
 
-        <button
-          onClick={() => signIn("google", { callbackUrl: "/" })}>
-          Sign in
-        </button>
 
         {/* Username (only shown if logged in)  */}
         {/* {username && <span className={styles.username}>{username}</span>} */}
