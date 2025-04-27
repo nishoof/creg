@@ -39,7 +39,7 @@ export function Header() {
           Course Registration
         </Link>
 
-        <Link href="/ap-credit" className={styles.navButton}>
+        <Link href="/ap-tests" className={styles.navButton}>
           AP Credit
         </Link>
 
