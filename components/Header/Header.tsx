@@ -33,24 +33,11 @@ export function Header() {
           Placement Tests
         </Link>
 
+        <Link href="/course-recommendations" className={styles.navButton}>
+          Course Recommendations
+        </Link>
+
         <Account />
-
-
-        {/* Login / Logout */}
-        {/* {username ? (
-          <Link href="/" onClick={handleLogout} className={styles.navButton}>
-            Logout
-          </Link>
-        ) : (
-          <Link href="/login" className={styles.navButton}>
-            Login
-          </Link>
-        )} */}
-
-
-        {/* Username (only shown if logged in)  */}
-        {/* {username && <span className={styles.username}>{username}</span>} */}
-
       </nav>
     </header>
   );
