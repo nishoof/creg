@@ -22,7 +22,7 @@ export default async function Recommendations() {
 
   const { name, email } = authenticatedUser;
 
-  const recommendation = getCourseRecommendations(email);
+  const recommendation = await getCourseRecommendations(email);
 
   return (
     <div className="page">
