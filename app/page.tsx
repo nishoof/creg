@@ -30,8 +30,8 @@ export default async function Home() {
             <Link href="/first-year-info" className={styles.primaryCta}>
               First Year Guide
             </Link>
-            <Link href="/register-landing-page" className={styles.secondaryCta}>
-              Register for Courses
+            <Link href="/course-recommendations" className={styles.secondaryCta}>
+              Course Recommendations
             </Link>
           </div>
         </main>
