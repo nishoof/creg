@@ -1,19 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import styles from "./Header.module.css";
+import Account from "./Account";
 
 export function Header() {
-  const router = useRouter();
-  const username = typeof window !== "undefined" ? localStorage.getItem("currentUser") : null;
-
-  const handleLogout = () => {
-    localStorage.removeItem("currentUser");
-    router.push("/");
-  };
-
   return (
     <header className={styles.header}>
       <Link href="/">
@@ -43,21 +33,11 @@ export function Header() {
           Placement Tests
         </Link>
 
+        <Link href="/course-recommendations" className={styles.navButton}>
+          Course Recommendations
+        </Link>
 
-        {/* Login / Logout */}
-        {/* {username ? (
-          <Link href="/" onClick={handleLogout} className={styles.navButton}>
-            Logout
-          </Link>
-        ) : (
-          <Link href="/login" className={styles.navButton}>
-            Login
-          </Link>
-        )} */}
-
-        {/* Username (only shown if logged in)  */}
-        {/* {username && <span className={styles.username}>{username}</span>} */}
-
+        <Account />
       </nav>
     </header>
   );

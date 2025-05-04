@@ -2,7 +2,10 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  // const session = await auth();
+  // console.log("session:", session);
+
   return (
     <>
       <Image

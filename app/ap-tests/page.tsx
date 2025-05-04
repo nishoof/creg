@@ -1,7 +1,7 @@
 "use client";
 
+import { apTestCredit, apTests } from "@/functions/credit-ap";
 import { ChangeEventHandler, useEffect, useState } from "react";
-import { apTestCreditMap, apTests } from "./ap-credits";
 import styles from "./page.module.css";
 
 // Determines the AP credit result based on the test's name and score
@@ -12,7 +12,7 @@ function determineCreditResult(testName: string, testScore: number) {
   if (testScore < 1 || testScore > 5)
     throw new Error("Test score must be between 1 and 5.");
 
-  const testCredit = apTestCreditMap[testName];
+  const testCredit = apTestCredit[testName];
   if (!testCredit)
     throw new Error(`No credit mapping found for the test: ${testName}`);
 
@@ -20,16 +20,24 @@ function determineCreditResult(testName: string, testScore: number) {
     return `No credit, need a score of ${testCredit.score} or higher`;
   }
 
-  if (testCredit.credit === "General Elective") {
+  if (testCredit.credit[0] === "General Elective") {
     return "This counts as a General Elective";
   }
 
-  // AP Biology has a special case for scores of 4 or 5
-  if (testName === "AP Biology" && testScore === 5) {
-    return `This counts as ${testCredit.credit}. You could also petition the Biology Chair to receive credit for BIOL 105-General Biology I (4 credits) and BIOL 106-General Biology II (4 credits) in place of credit for BIOL 100 and BIOL 103`;
+  if (testCredit.credit[0] === "Reach out to department to determine level.") {
+    return testCredit.credit[0];
   }
 
-  return `This counts as ${testCredit.credit}`;
+  // Convert the string array to a string
+  // For example, ["CHEM 111", "CHEM 113"] becomes "CHEM 111 and CHEM 113"
+  const creditString = testCredit.credit.join(" and ");
+
+  // AP Biology has a special case for scores of 4 or 5
+  if (testName === "AP Biology" && testScore === 5) {
+    return `This counts as ${creditString}. You could also petition the Biology Chair to receive credit for BIOL 105-General Biology I (4 credits) and BIOL 106-General Biology II (4 credits) in place of credit for BIOL 100 and BIOL 103`;
+  }
+
+  return `This counts as ${creditString}`;
 }
 
 export default function APTests() {

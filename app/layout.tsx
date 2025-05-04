@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -21,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={openSans.className}>
-        <Header />
-        <ChatBot />
-        {children}
+        <SessionProvider>
+          <Header />
+          <ChatBot />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

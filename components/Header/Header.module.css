@@ -38,13 +38,15 @@
     transition: all 0.2s ease;
 }
 
-.username {
-    padding: 10px 16px;
-    border-radius: 6px;
+/* Make an HTML button look like a link, for the sign in button */
+.accountButton {
+    outline: none;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
     font-weight: 500;
-    text-decoration: none;
-    color: var(--text-color);
-    cursor: default;
+    cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
