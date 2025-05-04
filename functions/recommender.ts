@@ -1,8 +1,11 @@
+"use server";
+
+import { auth, authenticate } from "@/auth";
 import { createUser, getUserData } from "./db";
 
 const csPathway = ["CS 110", "CS 111", "CS 112", "CS 221", "CS 245"];
 
-export async function getUserDataOrMakeUser(username: string) {
+async function getUserDataOrMakeUser(username: string) {
     let user = await getUserData(username);
     if (user)
         return user;
@@ -11,7 +14,13 @@ export async function getUserDataOrMakeUser(username: string) {
     return getUserData(username);
 }
 
-export async function getCourseRecommendations(email: string) {
+export async function getCourseRecommendations() {
+    const session = await auth();
+    const authenticatedUser = authenticate(session);
+    if (!authenticatedUser)
+        throw new Error("User is not logged in");
+
+    const email = authenticatedUser.email;
     const username = email.split("@")[0];
     const userdata = await getUserDataOrMakeUser(username);
     if (!userdata) {
