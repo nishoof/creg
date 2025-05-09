@@ -10,18 +10,17 @@
   },
   "dependencies": {
     "dotenv": "^16.5.0",
-    "mongodb": "^6.16.0",
-    "mongoose": "^8.14.1",
-    "next": "^14",
+    "mongoose": "^8.14.2",
+    "next": "^14.2.28",
     "next-auth": "5.0.0-beta.4",
-    "openai": "^4.91.1",
-    "react": "^18",
-    "react-dom": "^18"
+    "openai": "^4.98.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "typescript": "^5"
+    "@types/node": "^20.17.46",
+    "@types/react": "^18.3.21",
+    "@types/react-dom": "^18.3.7",
+    "typescript": "^5.8.3"
   }
 }
