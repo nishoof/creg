@@ -1,0 +1,54 @@
+.grid {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: var(--background);
+    border-radius: 0.75em;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    border: 1px solid #e5e7eb;
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.card h4:not(:first-of-type) {
+    margin-top: 1em;
+}
+
+.cardSection {
+    padding: 1.5em;
+}
+
+.cardHeaderGreen {
+    background: linear-gradient(135deg, #e6f7ec 0%, #d1f2e6 100%);
+}
+
+.cardHeaderBlue {
+    background: linear-gradient(135deg, #e6f1ff 0%, #d9e8ff 100%);
+}
+
+.cardHeaderYellow {
+    background: linear-gradient(135deg, #fff8e6 0%, #ffefd1 100%);
+}
+
+.unstyledList {
+    list-style: none;
+}
+
+.unstyledList li {
+    margin: 0.2em 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .card:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+}
