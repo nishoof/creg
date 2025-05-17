@@ -1,7 +1,7 @@
 "use client";
 
 import { authenticate, getUsername } from "@/auth";
-import { apTestCredit, apTests } from "@/functions/credit-ap";
+import { apTestCredit, apTests } from "@/functions/credit";
 import { addAPTest } from "@/functions/db";
 import { useSession } from "next-auth/react";
 import { ChangeEventHandler, useEffect, useState } from "react";

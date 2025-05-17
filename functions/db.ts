@@ -2,8 +2,6 @@
 
 import dotenv from "dotenv";
 import mongoose, { connect, Document, Model } from "mongoose";
-import { getApCredit } from "./credit-ap";
-import { getCSPlacementCredit } from "./credit-placement";
 
 dotenv.config();
 const uri = process.env.MONGODB_URI;
@@ -23,10 +21,6 @@ export interface UserInterface extends Document {
         testScore: number;
     }[];
     completedCourses: string[];
-    credits: {
-        course: string;
-        source: string;
-    }[];
 }
 
 const UserSchema = new mongoose.Schema<UserInterface>({
@@ -44,29 +38,10 @@ const UserSchema = new mongoose.Schema<UserInterface>({
         }
     ],
     completedCourses: [String],
-    credits: [
-        {
-            course: { type: String, required: true },
-            source: { type: String, required: true }
-        }
-    ]
 });
 
 // Ensure the model isn't overwritten if it already exists
 const User: Model<UserInterface> = (mongoose.models.User as Model<UserInterface>) || mongoose.model<UserInterface>("User", UserSchema);
-
-async function addCredit(user: (mongoose.Document<any, any, UserInterface> & UserInterface), credits: { course: string; source: string }) {
-    // Check if the user already has the credits
-    const existingCreditsCourses = user.credits.map((credit) => credit.course);
-    if (existingCreditsCourses.includes(credits.course)) {
-        console.log(`User ${user.username} already has credit for ${credits.course}`);
-        return;
-    }
-
-    // Add the new credits to the user's credits array
-    user.credits.push(credits);
-    console.log(`Added credit for ${credits.course} to user ${user.username}`);
-}
 
 export async function createUser(username: string) {
     console.log(`Creating user ${username}`);
@@ -103,14 +78,6 @@ export async function addAPTest(username: string, test: { testName: string; test
     // If so, update its score
     if (existingTest) {
         existingTest.testScore = test.testScore;
-        const credits = getApCredit(test.testName, test.testScore);
-        if (credits.length > 0) {
-            // Add the credit to the user's credits array
-            const creditsWithSource = credits.map((c) => ({ course: c, source: test.testName }));   // proper format for the database
-            for (const credit of creditsWithSource) {
-                await addCredit(user, credit);
-            }
-        }
         await user.save();
         return "UPDATED";
     }
@@ -139,19 +106,6 @@ export async function addPlacementTest(username: string, test: { testName: strin
     // If so, update its score
     if (existingTest) {
         existingTest.testScore = test.testScore;
-
-        // Add credit for CS placement tests
-        if (test.testName === "CS Placement") {
-            const credits = getCSPlacementCredit(test.testScore);
-            if (credits.length > 0) {
-                // Add the credit to the user's credits array
-                const creditsWithSource = credits.map((c) => ({ course: c, source: test.testName }));   // proper format for the database
-                for (const credit of creditsWithSource) {
-                    await addCredit(user, credit);
-                }
-            }
-        }
-
         await user.save();
         return;
     }

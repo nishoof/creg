@@ -2,6 +2,7 @@
 
 import { auth, authenticate } from "@/auth";
 import { createUser, getUserData } from "./db";
+import { getCredit } from "./credit";
 
 const csPathway = ["CS 110", "CS 111", "CS 112", "CS 221", "CS 245"];
 
@@ -26,21 +27,18 @@ export async function getCourseRecommendations() {
     if (!userdata) {
         throw new Error("User not found and could not be created.");
     }
-    const credits = userdata.credits;
+    const credits = getCredit(userdata.apTests, userdata.placementTests);
 
     console.log(`User ${username} has the following credits: ${credits}`);
 
     // If the user doesn't have any credits, recommend the first course in the pathway
-    if (credits.length === 0) {
+    if (credits.size === 0) {
         return csPathway[0];
     }
 
-    // Convert credits to a set of just the course names
-    const creditSet = new Set(credits.map((credit) => credit.course));
-
     // Find the first course in the pathway that the user does not have credit for, then return it
     for (const course of csPathway) {
-        if (!creditSet.has(course)) {
+        if (!credits.has(course)) {
             return course;
         }
     }

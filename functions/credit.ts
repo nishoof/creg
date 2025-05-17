@@ -1,4 +1,9 @@
-type ApTestCredit = {
+interface Test {
+    testName: string;
+    testScore: number;
+}
+
+interface ApTestCredit {
     [key: string]: {
         score: number;
         credit: string[];
@@ -57,4 +62,46 @@ export function getApCredit(apTest: string, score: number): string[] {
     if (!test) return [];
     if (score < test.score) return [];
     return test.credit;
+}
+
+export function getPlacementCredit(placementTest: string, score: number) {
+    if (placementTest === "CSPlacement") {
+        return getCSPlacementCredit(score);
+    }
+
+    throw new Error(`Invalid placement test name ${placementTest}`);
+}
+
+export function getCredit(apTests: Test[], placementTests: Test[]) {
+    const credits: Set<string> = new Set();
+
+    for (const test of apTests) {
+        const credit = getApCredit(test.testName, test.testScore);
+        for (const c of credit) {
+            credits.add(c);
+        }
+    }
+
+    for (const test of placementTests) {
+        const credit = getPlacementCredit(test.testName, test.testScore);
+        for (const c of credit) {
+            credits.add(c);
+        }
+    }
+
+    return credits;
+}
+
+function getCSPlacementCredit(score: number): string[] {
+    if (score < 0 || score > 100) {
+        throw new Error("Invalid score");
+    }
+
+    if (score >= 75) {
+        return ["CS 110", "CS 111"];
+    } else if (score >= 40) {
+        return ["CS 110"];
+    } else {
+        return [];
+    }
 }
