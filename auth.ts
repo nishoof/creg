@@ -40,3 +40,7 @@ export function authenticate(session: Session | null): authenticatedUser | false
 
     return session.user as authenticatedUser;
 }
+
+export function getUsername(authenticatedUser: authenticatedUser): string {
+    return authenticatedUser.email.split("@")[0];
+}

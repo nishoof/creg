@@ -1,6 +1,9 @@
 "use client";
 
+import { authenticate, getUsername } from "@/auth";
 import { apTestCredit, apTests } from "@/functions/credit-ap";
+import { addAPTest } from "@/functions/db";
+import { useSession } from "next-auth/react";
 import { ChangeEventHandler, useEffect, useState } from "react";
 import styles from "./page.module.css";
 
@@ -41,9 +44,16 @@ function determineCreditResult(testName: string, testScore: number) {
 }
 
 export default function APTests() {
+  // Auth
+  const { data: session } = useSession();
+  const authenticatedUser = authenticate(session);
+  const loggedIn = authenticatedUser !== false;
+
+  // State, holds AP test name (input), score (input), and earned credit (output)
   const [testName, setTestName] = useState<string>(apTests[0]);
   const [testScore, setTestScore] = useState<number>(1);
-  const [earnedCredit, setEarnedCredit] = useState<string>("");
+  const [earnedCredit, setEarnedCredit] = useState<string>(determineCreditResult(testName, testScore));
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // Update earnedCredit when the testName or testScore changes
   useEffect(() => {
@@ -58,14 +68,32 @@ export default function APTests() {
 
   // Update and validate the test score input when the user types in the input field
   const handleTestScoreChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const numericValue = Number(e.target.value);
+    const lastChar = e.target.value.slice(-1);
+    const numericValue = Number(lastChar);
     if (numericValue >= 1 && numericValue <= 5) {
       e.target.value = numericValue.toString();
       setTestScore(numericValue);
-    } else if (e.target.value === "") {
-      setTestScore(1);
     }
   };
+
+  // Function to add the test to the user's account
+  async function addTestToAccount() {
+    if (!loggedIn) {
+      alert("You must be logged in to add an AP test.");
+      return;
+    }
+
+    const username = getUsername(authenticatedUser);
+    const res = await addAPTest(username, { testName: testName, testScore: testScore });
+    if (res === "ADDED") {
+      setSuccessMessage("AP test added successfully!");
+    } else if (res === "UPDATED") {
+      setSuccessMessage("AP test updated successfully!");
+    } else {
+      setSuccessMessage("Failed to add AP test.");
+    }
+    setTimeout(() => setSuccessMessage(null), 5000); // Clear message after 5 seconds
+  }
 
   return (
     <div className="page">
@@ -112,6 +140,18 @@ export default function APTests() {
         <div className={styles.results}>
           {earnedCredit}
         </div>
+
+        {/* Button to add the test to the user's account */}
+        <button onClick={addTestToAccount} className={styles.button}>
+          Add AP Test to Account
+        </button>
+
+        {/* Success message after adding the test to account */}
+        {successMessage &&
+          <div style={{ color: "green", fontWeight: "bold", marginTop: "1em" }}>
+            {successMessage}
+          </div>
+        }
       </main>
     </div>
   );

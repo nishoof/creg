@@ -1,5 +1,7 @@
+"use server";
+
 import dotenv from "dotenv";
-import mongoose, { connect, Document, Model, mongo } from "mongoose";
+import mongoose, { connect, Document, Model } from "mongoose";
 import { getApCredit } from "./credit-ap";
 import { getCSPlacementCredit } from "./credit-placement";
 
@@ -110,12 +112,13 @@ export async function addAPTest(username: string, test: { testName: string; test
             }
         }
         await user.save();
-        return;
+        return "UPDATED";
     }
 
     // Otherwise, add the new test to the user's apTests array
     user.apTests.push(test);
     await user.save();
+    return "ADDED";
 }
 
 export async function addPlacementTest(username: string, test: { testName: string; testScore: number }) {
