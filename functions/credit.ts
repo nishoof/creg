@@ -1,16 +1,11 @@
-interface Test {
+/** Represents a test (such as an ap test or placement test) with a test name and test score */
+export interface Test {
     testName: string;
     testScore: number;
 }
 
-interface ApTestCredit {
-    [key: string]: {
-        score: number;
-        credit: string[];
-    }
-};
-
-export const apTestCredit: ApTestCredit = {
+/** Maps AP test names to their corresponding credit information */
+export const apTestCredit: { [key: string]: { score: number; credit: string[] } } = {
     "AP African American Studies": { score: 3, credit: ["General Elective"] },
     "AP Art History": { score: 3, credit: ["Visual and Performing Arts Core"] },
     "AP Art: Studio Drawing": { score: 3, credit: ["General Elective"] },
@@ -55,23 +50,10 @@ export const apTestCredit: ApTestCredit = {
     "AP World History": { score: 4, credit: ["General Elective"] }
 };
 
+/** List of all known AP test names */
 export const apTests = Object.keys(apTestCredit);
 
-export function getApCredit(apTest: string, score: number): string[] {
-    const test = apTestCredit[apTest];
-    if (!test) return [];
-    if (score < test.score) return [];
-    return test.credit;
-}
-
-export function getPlacementCredit(placementTest: string, score: number) {
-    if (placementTest === "CSPlacement") {
-        return getCSPlacementCredit(score);
-    }
-
-    throw new Error(`Invalid placement test name ${placementTest}`);
-}
-
+/** Returns the credits for a list of AP tests and placement tests. */
 export function getCredit(apTests: Test[], placementTests: Test[]) {
     const credits: Set<string> = new Set();
 
@@ -92,6 +74,24 @@ export function getCredit(apTests: Test[], placementTests: Test[]) {
     return credits;
 }
 
+/** Returns the credit for a given AP test and score. */
+function getApCredit(apTest: string, score: number) {
+    const test = apTestCredit[apTest];
+    if (!test) return [];
+    if (score < test.score) return [];
+    return test.credit;
+}
+
+/** Returns the credit for a given placement test and score. */
+function getPlacementCredit(placementTest: string, score: number) {
+    if (placementTest === "CSPlacement") {
+        return getCSPlacementCredit(score);
+    }
+
+    throw new Error(`Invalid placement test name ${placementTest}`);
+}
+
+/** Returns the credit for the CS placement test based on the given score. */
 function getCSPlacementCredit(score: number): string[] {
     if (score < 0 || score > 100) {
         throw new Error("Invalid score");
