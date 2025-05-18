@@ -1,7 +1,5 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
-import dotenv from "dotenv";
-dotenv.config();
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;

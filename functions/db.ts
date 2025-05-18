@@ -1,9 +1,7 @@
 "use server";
 
-import dotenv from "dotenv";
 import mongoose, { connect, Document, Model } from "mongoose";
 
-dotenv.config();
 const uri = process.env.MONGODB_URI;
 if (!uri) {
     throw new Error("Env not configured with MONGODB_URI");
