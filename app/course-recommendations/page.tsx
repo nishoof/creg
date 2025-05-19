@@ -1,8 +1,9 @@
 import { auth, authenticate, getUsername } from "@/auth";
 import { Course } from "@/components/Course";
-import { Test } from "@/functions/credit";
+import { getCredit, Test } from "@/functions/credit";
 import { getUserData } from "@/functions/db";
 import styles from "./page.module.css";
+import { getCSMathRec, getCSRec } from "@/functions/recommender";
 
 export default async function Recommendations() {
   // Make sure user is logged in
@@ -26,8 +27,17 @@ export default async function Recommendations() {
 
   // Get userdata from database
   const username = getUsername(authenticatedUser);
-  const data = await getUserData(username);
-  const apTests = data.apTests.map((test: Test) => (
+  const userdata = await getUserData(username);
+
+  // Calculate credits
+  const credits = getCredit(userdata.apTests, userdata.placementTests);
+
+  // Get personalized recommendations
+  const csRecommendation = getCSRec(credits);
+  const csMathRecommendation = getCSMathRec(credits);
+
+  // Make ap tests list to show on the page
+  const apTests = userdata.apTests.map((test: Test) => (
     <li key={test.testName}>
       {test.testName}: {test.testScore}
     </li>
@@ -107,16 +117,18 @@ export default async function Recommendations() {
                 <p>Your personalized course plan</p>
               </div>
               <div className={styles.cardSection}>
-                <h4>Major Courses</h4>
-                <ul className={styles.unstyledList}>
-                  <li><Course courseTitle="CS 112: Intro to CS II (Java)" /></li>
-                  <li><Course courseTitle="MATH 201: Discrete Mathematics" /></li>
-                </ul>
+                {(csRecommendation || csMathRecommendation) && <> {/* Only show this if there is a recommendation to show */}
+                  <h4>Major Courses</h4>
+                  <ul className={styles.unstyledList}>
+                    {csRecommendation && <li><Course courseCode={csRecommendation} /></li>}
+                    {csMathRecommendation && <li><Course courseCode={csMathRecommendation} /></li>}
+                  </ul>
+                </>}
 
                 <h4>Core Courses</h4>
                 <ul className={styles.unstyledList}>
-                  <li><Course courseTitle="RHET 103: Public Speaking" /></li>
-                  <li><Course courseTitle="RHET 120: Written Communication II" /></li>
+                  <li><Course courseCode="RHET 103" /></li>
+                  <li><Course courseCode="RHET 120" /></li>
                 </ul>
               </div>
             </div>

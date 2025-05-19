@@ -18,7 +18,6 @@ export interface UserInterface extends Document {
         testName: string;
         testScore: number;
     }[];
-    completedCourses: string[];
 }
 
 const UserSchema = new mongoose.Schema<UserInterface>({
@@ -35,7 +34,6 @@ const UserSchema = new mongoose.Schema<UserInterface>({
             testScore: { type: Number, required: true }
         }
     ],
-    completedCourses: [String],
 });
 
 // Ensure the model isn't overwritten if it already exists
