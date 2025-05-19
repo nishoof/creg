@@ -12,6 +12,12 @@ const courseCodeToName: { [key: string]: string } = {
     "RHET 120": "Written Communication II",
 }
 
+const subjectCodeToName: { [key: string]: string } = {
+    "CS": "Computer Science",
+    "MATH": "Mathematics",
+    "RHET": "Rhetoric and Composition",
+}
+
 /** 
  * Returns the full name of a course given its code.
  * If no course name was found, just returns the courseCode back.
@@ -25,4 +31,19 @@ export function getCourseName(courseCode: string): string {
         return courseCode;
     }
     return courseCode + ": " + courseCodeToName[courseCode];
+}
+
+/**
+ * Returns the full name of a subject given its code.
+ * If no subject name was found, just returns the subjectCode back.
+ * 
+ * For example, "CS" will return "Computer Science".
+*/
+export function getSubjectName(subjectCode: string): string {
+    const subjectName = subjectCodeToName[subjectCode];
+    if (!subjectName) {
+        console.warn(`Subject name not found for subject code: ${subjectCode}`);
+        return subjectCode;
+    }
+    return subjectName;
 }

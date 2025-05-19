@@ -1,16 +1,10 @@
-import { getCourseName } from "@/functions/courseNames";
+import { getCourseName, getSubjectName } from "@/functions/courses";
 import styles from "./Course.module.css";
-
-const subjectFullNames: { [key: string]: string } = {
-  "CS": "Computer Science",
-  "MATH": "Mathematics",
-  "RHET": "Rhetoric and Composition",
-}
 
 export function Course({ courseCode }: { courseCode: string }) {
   // Get the subject from the course code
   const subjectCode = courseCode.split(" ")[0];
-  const subject = subjectFullNames[subjectCode] || subjectCode;
+  const subject = getSubjectName(subjectCode);
 
   // Get the course name from the course code
   const courseName = getCourseName(courseCode);
