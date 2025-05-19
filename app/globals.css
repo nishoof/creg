@@ -140,6 +140,10 @@ li {
   border: none;
 }
 
+.marginedParagraph {
+  margin-bottom: 1em;
+}
+
 @media (hover: hover) and (pointer: fine) {
   a:hover {
     color: var(--primary-color-dark);
