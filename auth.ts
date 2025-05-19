@@ -1,6 +1,18 @@
 import NextAuth, { NextAuthConfig, Session } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
+/**
+ * Client-side authentication example:
+ * const { data: session } = useSession();
+ * const authenticatedUser = authenticate(session);
+ * const loggedIn = authenticatedUser !== false;
+ * 
+ * Server-side authentication example:
+ * const session = await auth();
+ * const authenticatedUser = authenticate(session);
+ * const loggedIn = authenticatedUser !== false;
+ */
+
 const authOptions = {
     providers: [
         GoogleProvider({

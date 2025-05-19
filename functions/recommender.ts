@@ -1,19 +1,10 @@
 "use server";
 
-import { auth, authenticate } from "@/auth";
-import { createUser, getUserData } from "./db";
+import { auth, authenticate, getUsername } from "@/auth";
 import { getCredit } from "./credit";
+import { getUserData } from "./db";
 
 const csPathway = ["CS 110", "CS 111", "CS 112", "CS 221", "CS 245"];
-
-async function getUserDataOrMakeUser(username: string) {
-    let user = await getUserData(username);
-    if (user)
-        return user;
-
-    await createUser(username);
-    return getUserData(username);
-}
 
 export async function getCourseRecommendations() {
     const session = await auth();
@@ -21,9 +12,8 @@ export async function getCourseRecommendations() {
     if (!authenticatedUser)
         throw new Error("User is not logged in");
 
-    const email = authenticatedUser.email;
-    const username = email.split("@")[0];
-    const userdata = await getUserDataOrMakeUser(username);
+    const username = getUsername(authenticatedUser);
+    const userdata = await getUserData(username);
     if (!userdata) {
         throw new Error("User not found and could not be created.");
     }

@@ -53,9 +53,20 @@ export async function createUser(username: string) {
     await newUser.save();
 }
 
-export async function getUserData(username: string): Promise<UserInterface | null> {
-    const user = await User.findOne({ username: username });
-    return user;
+export async function getUserData(username: string): Promise<UserInterface> {
+    /**
+     * Implementation note: we use lean() to return a plain old JavaScript 
+     * object (POJO) instead of a Mongoose document. This enables us to pass
+     * the object from server to client (needs to be serializable)
+     * 
+     * @see https://mongoosejs.com/docs/tutorials/lean.html
+     */
+
+    const user = await User.findOne({ username: username }).lean();
+    if (user)
+        return JSON.parse(JSON.stringify(user));
+    await createUser(username);
+    return await getUserData(username);
 }
 
 export async function addAPTest(username: string, test: { testName: string; testScore: number }) {

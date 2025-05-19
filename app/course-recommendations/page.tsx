@@ -1,89 +1,11 @@
-"use client";
-
-import { authenticate } from "@/auth";
-import { getCourseRecommendations } from "@/functions/recommender";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { auth, authenticate, getUsername } from "@/auth";
+import { Test } from "@/functions/credit";
+import { getUserData } from "@/functions/db";
 import styles from "./page.module.css";
 
-export default function Recommendations() {
-  // State to hold the recommendation
-  // string is for the course name, null is for no recommendations, and undefined is for loading
-  const [recommendation, setRecommendation] = useState<string | null | undefined>(undefined);
-
-  // State to hold which accordion is open for the cores
-  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
-
-  // Function to handle accordion click
-  const toggleAccordion = (accordion: string) => {
-    if (openAccordion === accordion) {
-      setOpenAccordion(null);
-    } else {
-      setOpenAccordion(accordion);
-    }
-  }
-
-  // Core curriculum requirements
-  const coreRequirements = [
-    {
-      id: "area-a",
-      area: "Area A – Foundations of Communication (8 units)",
-      requirements: [
-        { name: "Public Speaking (4 units)", courses: ["RHET 103", "RHET 195"] },
-        { name: "Rhetoric and Composition (4 units)", courses: ["RHET 110", "RHET 120", "RHET 130", "RHET 131"] },
-      ],
-    },
-    {
-      id: "area-b",
-      area: "Area B – Mathematics and the Sciences (8 units)",
-      requirements: [
-        {
-          name: "Math or Quantitative Science (4 units)",
-          courses: ["MATH 104", "MATH 105", "MATH 106", "MATH 107", "MATH 108", "MATH 109"],
-        },
-        { name: "Applied or Laboratory Science (4 units)", courses: ["BIOL 100", "CHEM 111", "PHYS 100", "ENVS 110"] },
-      ],
-    },
-    {
-      id: "area-c",
-      area: "Area C – Humanities (8 units)",
-      requirements: [
-        { name: "Literature (4 units)", courses: ["ENGL 192", "ENGL 195", "ENGL 198"] },
-        { name: "History (4 units)", courses: ["HIST 110", "HIST 120", "HIST 130"] },
-      ],
-    },
-    {
-      id: "area-d",
-      area: "Area D – Philosophy, Theology, and Ethics (12 units)",
-      requirements: [
-        { name: "Philosophy (4 units)", courses: ["PHIL 110", "PHIL 195"] },
-        { name: "Theology and Religious Studies (4 units)", courses: ["THRS 100", "THRS 104", "THRS 106"] },
-        { name: "Ethics (4 units)", courses: ["PHIL 240", "THRS 220", "CS 195"] },
-      ],
-    },
-    {
-      id: "area-e",
-      area: "Area E – Social Sciences (4 units)",
-      requirements: [{ name: "Social Sciences", courses: ["PSYC 101", "SOC 150", "POLS 101", "ECON 111", "ECON 112"] }],
-    },
-    {
-      id: "area-f",
-      area: "Area F – Visual and Performing Arts (4 units)",
-      requirements: [{ name: "Visual and Performing Arts", courses: ["ART 101", "MUS 120", "THTR 105", "DANC 140"] }],
-    },
-  ]
-
-  // Fetch the recommendation every time the component renders / re-renders
-  useEffect(() => {
-    async function fetchRecommendation() {
-      const newRecommendation = await getCourseRecommendations();
-      setRecommendation(newRecommendation);
-    }
-    fetchRecommendation();
-  });
-
+export default async function Recommendations() {
   // Make sure user is logged in
-  const { data: session } = useSession();
+  const session = await auth();
   const authenticatedUser = authenticate(session);
   const loggedIn = authenticatedUser !== false;
 
@@ -101,6 +23,15 @@ export default function Recommendations() {
     );
   }
 
+  // Get userdata from database
+  const username = getUsername(authenticatedUser);
+  const data = await getUserData(username);
+  const apTests = data.apTests.map((test: Test) => (
+    <li key={test.testName}>
+      {test.testName}: {test.testScore}
+    </li>
+  ));
+
   return (
     <div className="page">
       <main className="main">
@@ -112,6 +43,7 @@ export default function Recommendations() {
         <div>
           <h2>Welcome, {authenticatedUser.name}!</h2>
           <p>Email: {authenticatedUser.email}</p>
+          {/* TODO: Get user's major, replace this placeholder */}
           <p>Major: Computer Science</p>
         </div>
 
@@ -139,12 +71,12 @@ export default function Recommendations() {
               <div className={styles.cardSection}>
                 <h4>AP Tests</h4>
                 <ul className={styles.unstyledList}>
-                  {/* PLACEHOLDER */}
-                  {/* TODO: Get tests from db */}
                   {/* TODO: Placement tests in different list */}
-                  <li>AP Calculus AB: 5</li>
-                  <li>AP Calculus BC: 4</li>
-                  <li>AP Chemistry: 3</li>
+                  {apTests.length > 0 ? (
+                    apTests
+                  ) : (
+                    <li>No AP tests found.</li>
+                  )}
                 </ul>
               </div>
             </div>
