@@ -1,0 +1,30 @@
+.outerBox {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.highlightBox {
+    background: linear-gradient(#f59e0b, #d97706);
+    border-radius: 5px 0 0 5px;
+    width: 5px;
+}
+
+.innerBox {
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    padding: 0.6em 0.75em;
+    width: 100%;
+}
+
+.courseTitle {
+    margin-bottom: 0.35em;
+    text-wrap: pretty;
+}
+
+.courseSubject {
+    font-size: 0.875em;
+    color: #6b7280;
+}

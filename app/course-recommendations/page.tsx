@@ -1,4 +1,5 @@
 import { auth, authenticate, getUsername } from "@/auth";
+import { Course } from "@/components/Course";
 import { Test } from "@/functions/credit";
 import { getUserData } from "@/functions/db";
 import styles from "./page.module.css";
@@ -108,14 +109,14 @@ export default async function Recommendations() {
               <div className={styles.cardSection}>
                 <h4>Major Courses</h4>
                 <ul className={styles.unstyledList}>
-                  <li>CS 112: Intro to CS II (Java)</li>
-                  <li>MATH 201: Discrete Mathematics</li>
+                  <li><Course courseTitle="CS 112: Intro to CS II (Java)" /></li>
+                  <li><Course courseTitle="MATH 201: Discrete Mathematics" /></li>
                 </ul>
 
                 <h4>Core Courses</h4>
                 <ul className={styles.unstyledList}>
-                  <li>RHET 103: Public Speaking</li>
-                  <li>RHET 120: Written Communication II</li>
+                  <li><Course courseTitle="RHET 103: Public Speaking" /></li>
+                  <li><Course courseTitle="RHET 120: Written Communication II" /></li>
                 </ul>
               </div>
             </div>
