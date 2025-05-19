@@ -10,7 +10,7 @@ export default function Account() {
 
   const buttonOnClick: MouseEventHandler<HTMLButtonElement> = loggedIn ?
     () => signOut() :
-    () => signIn("google", { callbackUrl: "/" });
+    () => signIn("google");
   const buttonText = loggedIn ? "Sign out" : "Sign in";
 
   return (
