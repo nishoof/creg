@@ -1,6 +1,7 @@
 "use server";
 
 import mongoose, { connect, Document, Model } from "mongoose";
+import { isValidMajor } from "./majors";
 
 const uri = process.env.MONGODB_URI;
 if (!uri) {
@@ -10,6 +11,7 @@ await connect(uri);
 
 export interface UserInterface extends Document {
     username: string;
+    major: string;
     apTests: {
         testName: string;
         testScore: number;
@@ -22,6 +24,7 @@ export interface UserInterface extends Document {
 
 const UserSchema = new mongoose.Schema<UserInterface>({
     username: { type: String, required: true, unique: true },
+    major: { type: String },
     apTests: [
         {
             testName: { type: String, required: true },
@@ -65,6 +68,28 @@ export async function getUserData(username: string): Promise<UserInterface> {
         return JSON.parse(JSON.stringify(user));
     await createUser(username);
     return await getUserData(username);
+}
+
+export async function updateUserMajor(username: string, major: string) {
+    console.log(`Updating user ${username} major to ${major}`);
+
+    // Make sure the major is valid
+    if (!isValidMajor(major)) {
+        throw new Error(`Invalid major: ${major}`);
+    }
+
+    // Find the user in the database
+    const user = await User.findOne({ username: username });
+
+    // If the user does not exist, create the user and restart the process
+    if (!user) {
+        await createUser(username);
+        return updateUserMajor(username, major);
+    }
+
+    // Update the user's major
+    user.major = major;
+    await user.save();
 }
 
 export async function addAPTest(username: string, test: { testName: string; testScore: number }) {

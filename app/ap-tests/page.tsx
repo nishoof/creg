@@ -5,7 +5,7 @@ import { apTestCredit, apTests } from "@/functions/credit";
 import { addAPTest } from "@/functions/db";
 import { useSession } from "next-auth/react";
 import { ChangeEventHandler, useEffect, useState } from "react";
-import styles from "./page.module.css";
+import styles from "../form.module.css";
 
 // Determines the AP credit result based on the test's name and score
 function determineCreditResult(testName: string, testScore: number) {
