@@ -10,7 +10,20 @@ export default function GettingStarted() {
           <p>Everything you need to know to start your journey at USF</p>
         </div>
 
-        <h2>Step 1: Watch Videos and Mark Your Calendar</h2>
+        <h2>Step 1: Make your creg account</h2>
+        <div className={styles.infoGrid}>
+          <div className="infoCard">
+            <h3>Sign In Using Google</h3>
+            <p>Click Sign In in the top right and sign in using your <strong>@dons.usfca.edu</strong> email. This makes your creg account where you can save all your info to.</p>
+          </div>
+          <div className="infoCard">
+            <h3>Select Your Major</h3>
+            <p>Go to the Account page and enter your major. This lets us choose the correct information to show you!</p>
+            <Link className="link" href="/account">Account page</Link>
+          </div>
+        </div>
+
+        <h2>Step 2: Watch Videos and Mark Your Calendar</h2>
         <div className={styles.infoGrid}>
           <div className="infoCard">
             <h3>University Graduation Requirements Videos</h3>
@@ -30,7 +43,7 @@ export default function GettingStarted() {
           </div>
         </div>
 
-        <h2>Step 2: Testing</h2>
+        <h2>Step 3: Testing</h2>
         <div className={styles.infoGrid}>
           <div className="infoCard">
             <h3>Placement Tests</h3>
@@ -44,7 +57,7 @@ export default function GettingStarted() {
           </div>
         </div>
 
-        <h2>Step 3: See Your Course Recommendations</h2>
+        <h2>Step 4: See Your Course Recommendations</h2>
         <div className={styles.infoGrid}>
           <div className="infoCard">
             <h3>Course Recommendations</h3>
