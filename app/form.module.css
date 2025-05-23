@@ -3,7 +3,7 @@
     padding: 1.25em;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    margin: 1.25px 0;
+    margin-bottom: 1.5em;
 }
 
 .inputGroup {
@@ -60,6 +60,8 @@
     border-radius: 4px;
     cursor: pointer;
     transition: 0.2s ease;
+    display: block;
+    margin-top: 1.5em;
 }
 
 @media (hover: hover) and (pointer: fine) {

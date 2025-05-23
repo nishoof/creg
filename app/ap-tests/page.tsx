@@ -5,7 +5,7 @@ import { apTestCredit, apTests } from "@/functions/credit";
 import { addAPTest } from "@/functions/db";
 import { useSession } from "next-auth/react";
 import { ChangeEventHandler, useEffect, useState } from "react";
-import styles from "./page.module.css";
+import formStyles from "../form.module.css";
 
 // Determines the AP credit result based on the test's name and score
 function determineCreditResult(testName: string, testScore: number) {
@@ -86,13 +86,12 @@ export default function APTests() {
     const username = getUsername(authenticatedUser);
     const res = await addAPTest(username, { testName: testName, testScore: testScore });
     if (res === "ADDED") {
-      setSuccessMessage("AP test added successfully!");
+      setSuccessMessage("Added AP test successfully!");
     } else if (res === "UPDATED") {
-      setSuccessMessage("AP test updated successfully!");
+      setSuccessMessage("Updated AP test successfully!");
     } else {
       setSuccessMessage("Failed to add AP test.");
     }
-    setTimeout(() => setSuccessMessage(null), 5000); // Clear message after 5 seconds
   }
 
   return (
@@ -105,14 +104,14 @@ export default function APTests() {
         </div>
 
         {/* Form section for AP test selection and score input */}
-        <div className={styles.form}>
-          <div className={styles.inputGroup}>
+        <div className={formStyles.form}>
+          <div className={formStyles.inputGroup}>
             <label htmlFor="apTest">AP Test:</label>
             <select
               id="apTest"
               value={testName}
               onChange={handleTestNameChange}
-              className={styles.input}
+              className={formStyles.input}
             >
               {apTests.map((test) => (
                 <option key={test} value={test}>
@@ -122,14 +121,14 @@ export default function APTests() {
             </select>
           </div>
 
-          <div className={styles.inputGroup}>
+          <div className={formStyles.inputGroup}>
             <label htmlFor="apScore">AP Test Score (1-5):</label>
             <input
               type="number"
               id="apScore"
               value={testScore}
               onChange={handleTestScoreChange}
-              className={styles.input}
+              className={formStyles.input}
               min={1}
               max={5}
             />
@@ -137,18 +136,18 @@ export default function APTests() {
         </div>
 
         {/* Display the computed credit result */}
-        <div className={styles.results}>
+        <div className={formStyles.results}>
           {earnedCredit}
         </div>
 
         {/* Button to add the test to the user's account */}
-        <button onClick={addTestToAccount} className={styles.button}>
+        <button onClick={addTestToAccount} className={formStyles.button}>
           Add AP Test to Account
         </button>
 
         {/* Success message after adding the test to account */}
         {successMessage &&
-          <div style={{ color: "green", fontWeight: "bold", marginTop: "1em" }}>
+          <div className="successMessage">
             {successMessage}
           </div>
         }

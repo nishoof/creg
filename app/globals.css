@@ -140,6 +140,20 @@ li {
   border: none;
 }
 
+.successMessage,
+.errorMessage {
+  font-weight: 600;
+  margin-top: 1em;
+}
+
+.successMessage {
+  color: green;
+}
+
+.errorMessage {
+  color: red;
+}
+
 @media (hover: hover) and (pointer: fine) {
   a:hover {
     color: var(--primary-color-dark);
