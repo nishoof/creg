@@ -21,8 +21,8 @@ export function Header() {
       </Link>
 
       <nav className={styles.nav}>
-        <Link href="/first-year-info" className={styles.navButton}>
-          First Year Information
+        <Link href="/getting-started" className={styles.navButton}>
+          Getting Started
         </Link>
 
         <Link href="/ap-tests" className={styles.navButton}>

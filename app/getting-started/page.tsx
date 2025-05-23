@@ -1,12 +1,12 @@
 import Link from "next/link";
 import styles from "./page.module.css";
 
-export default function FirstYears() {
+export default function GettingStarted() {
   return (
     <div className="page">
       <main className="main">
         <div className="titleSection">
-          <h1>First Year Student Guide</h1>
+          <h1>Getting Started</h1>
           <p>Everything you need to know to start your journey at USF</p>
         </div>
 

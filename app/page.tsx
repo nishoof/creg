@@ -1,11 +1,8 @@
 import Image from "next/image";
-import styles from "./page.module.css";
 import Link from "next/link";
+import styles from "./page.module.css";
 
 export default async function Home() {
-  // const session = await auth();
-  // console.log("session:", session);
-
   return (
     <>
       <Image
@@ -27,8 +24,8 @@ export default async function Home() {
           </p>
 
           <div className={styles.ctas}>
-            <Link href="/first-year-info" className={styles.primaryCta}>
-              First Year Guide
+            <Link href="/getting-started" className={styles.primaryCta}>
+              Get Started
             </Link>
             <Link href="/course-recommendations" className={styles.secondaryCta}>
               Course Recommendations

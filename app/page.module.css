@@ -53,6 +53,7 @@
   gap: 16px;
   justify-content: center;
   margin-top: 32px;
+  width: 110%;
 }
 
 .primaryCta,
@@ -62,11 +63,13 @@
   font-weight: bold;
   text-decoration: none;
   transition: all 0.2s ease;
+  text-align: center;
 }
 
 .primaryCta {
   background-color: var(--primary-color);
   color: white;
+  width: 33%;
 }
 
 .secondaryCta {
