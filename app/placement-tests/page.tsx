@@ -122,15 +122,12 @@ export default function PlacementTests() {
 
     let tests = [];
     if (csPlacementTestScore !== null) {
-      console.log(`CS Placement Test Score: ${csPlacementTestScore}`);
       tests.push({ testName: "CSPlacementTest", testScore: csPlacementTestScore });
     }
     if (mathPlacementTestScore !== null) {
-      console.log(`Math Placement Test Score: ${mathPlacementTestScore}`);
       tests.push({ testName: "MathPlacementTest", testScore: mathPlacementTestScore });
     }
     if (languagePlacementTestName && languagePlacementTestScore !== null) {
-      console.log(`Language Placement Test: ${languagePlacementTestName}, Score: ${languagePlacementTestScore}`);
       tests.push({ testName: `${languagePlacementTestName}LanguagePlacementTest`, testScore: languagePlacementTestScore });
     }
 
