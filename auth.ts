@@ -38,21 +38,21 @@ export const {
     auth
 } = NextAuth(authOptions);
 
-type authenticatedUser = {
+export type AuthenticatedUser = {
     name: string;
     email: string;
 }
 
-export function authenticate(session: Session | null): authenticatedUser | false {
+export function authenticate(session: Session | null): AuthenticatedUser | false {
     if (!session) return false;
     if (!session.user) return false;
     if (!session.user.name) return false;
     if (!session.user.email) return false;
     if (!session.user.email.endsWith("dons.usfca.edu")) return false;
 
-    return session.user as authenticatedUser;
+    return session.user as AuthenticatedUser;
 }
 
-export function getUsername(authenticatedUser: authenticatedUser): string {
+export function getUsername(authenticatedUser: AuthenticatedUser): string {
     return authenticatedUser.email.split("@")[0];
 }
