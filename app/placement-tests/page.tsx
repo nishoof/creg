@@ -187,30 +187,35 @@ export default function PlacementTests() {
           </div>
 
           <div className={formStyles.inputGroup}>
-            <label htmlFor="languagePlacement">Language Placement Test Score:</label>
             <div style={{ display: "flex", gap: "1em", flexDirection: "row" }}>
-              <select
-                id="languagePlacement"
-                value={languagePlacementTestName ?? ''}
-                onChange={(e) => setLanguagePlacementTestName(e.target.value || null)}
-                className={formStyles.input}
-              >
-                <option value="">Select a language</option>
-                <option value="Spanish">Spanish</option>
-                <option value="French">French</option>
-                <option value="German">German</option>
-                <option value="Italian">Italian</option>
-              </select>
-              <input
-                type="number"
-                id="languagePlacement"
-                value={languagePlacementTestScore ?? ''}
-                onChange={(e) => setLanguagePlacementTestScore(e.target.value ? parseInt(e.target.value) : null)}
-                className={formStyles.input}
-                min={0}
-                max={100}
-                placeholder="Enter your Language Placement Test score"
-              />
+              <div style={{ flex: 1 }}>
+                <label htmlFor="languagePlacementName">Language Name:</label>
+                <select
+                  id="languagePlacementName"
+                  value={languagePlacementTestName ?? ''}
+                  onChange={(e) => setLanguagePlacementTestName(e.target.value || null)}
+                  className={formStyles.input}
+                >
+                  <option value="">Select a language</option>
+                  <option value="Spanish">Spanish</option>
+                  <option value="French">French</option>
+                  <option value="German">German</option>
+                  <option value="Italian">Italian</option>
+                </select>
+              </div>
+              <div style={{ flex: 1 }}>
+                <label htmlFor="languagePlacementScore">Language Placement Test Score:</label>
+                <input
+                  type="number"
+                  id="languagePlacementScore"
+                  value={languagePlacementTestScore ?? ''}
+                  onChange={(e) => setLanguagePlacementTestScore(e.target.value ? parseInt(e.target.value) : null)}
+                  className={formStyles.input}
+                  min={0}
+                  max={100}
+                  placeholder="Enter your Language Placement Test score"
+                />
+              </div>
             </div>
           </div>
         </div>
