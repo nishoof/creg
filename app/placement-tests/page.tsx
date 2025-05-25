@@ -1,7 +1,7 @@
 "use client";
 
 import { authenticate } from '@/auth';
-import { addPlacementTests, getUserData } from '@/functions/db';
+import { addPlacementTests, getUserData, UserInterface } from '@/functions/db';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -25,25 +25,47 @@ export default function PlacementTests() {
   const loggedIn = authenticatedUser !== false;
   const username = loggedIn ? authenticatedUser.email.split('@')[0] : "";
 
-  /** Helper function, gets the given user's major from the database assuming the user exists */
-  async function getMajor(username: string) {
-    const userdata = await getUserData(username);
-    return userdata.major;
+  /** Helper function, returns the best language test score from the given userdata */
+  function getBestLanguageTest(userdata: UserInterface) {
+    // Find the language placement test with the highest score
+    const languageTests = userdata.placementTests.filter(test => test.testName.endsWith("LanguagePlacementTest"));
+    if (languageTests.length === 0) return null;
+
+    // Sort by score in descending order and return the first one
+    const bestTest = languageTests.sort((a, b) => b.testScore - a.testScore)[0];
+    return { name: bestTest.testName.replace("LanguagePlacementTest", ""), score: bestTest.testScore };
   }
 
   // Get user's major from db (needs to be in a useEffect since it is async in a client component)
+  // Also get initial placement test scores
   const [major, setMajor] = useState<string | undefined>(undefined);
   useEffect(() => {
-    async function updateMajor() {
+    async function updateMajorAndTestScores() {
       if (!loggedIn) {
         setMajor(undefined);
-      } else {
-        const major = await getMajor(username);
-        setMajor(major);
+        return;
       }
+
+      // Get userdata from the database
+      const userdata = await getUserData(username);
+
+      // Update major
+      const major = userdata.major;
+      setMajor(major);
+
+      // Get placement test scores
+      const csPlacementTest = userdata.placementTests.find(test => test.testName === "CSPlacementTest");
+      const mathPlacementTest = userdata.placementTests.find(test => test.testName === "MathPlacementTest");
+      const languagePlacementTest = getBestLanguageTest(userdata);
+
+      // Update state with the scores
+      setCsPlacementTestScore(csPlacementTest ? csPlacementTest.testScore : null);
+      setMathPlacementTestScore(mathPlacementTest ? mathPlacementTest.testScore : null);
+      setLanguagePlacementTestName(languagePlacementTest ? languagePlacementTest.name : null);
+      setLanguagePlacementTestScore(languagePlacementTest ? languagePlacementTest.score : null);
     }
 
-    updateMajor();
+    updateMajorAndTestScores();
   }, [loggedIn]);
 
   // If the user is not logged in, show a message to log in
