@@ -4,7 +4,7 @@ import { authenticate } from '@/auth';
 import { addPlacementTests, getUserData, UserInterface } from '@/functions/db';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import formStyles from '../form.module.css';
 
 export default function PlacementTests() {
@@ -141,6 +141,59 @@ export default function PlacementTests() {
     setSuccessMessage("Placement test scores saved successfully!");
   }
 
+  /** Helper function, validates test score and updates the relevant state */
+  function handleTestScoreChange(event: ChangeEvent<HTMLInputElement>): void {
+    const val = event.target.value;
+
+    // If the input is empty, set the state to null and return early
+    if (val === "") {
+      console.log(`Clearing score for ${event.target.id}`);
+
+      switch (event.target.id) {
+        case "csPlacement":
+          setCsPlacementTestScore(null);
+          break;
+        case "mathPlacement":
+          setMathPlacementTestScore(null);
+          break;
+        case "languagePlacementScore":
+          setLanguagePlacementTestScore(null);
+          break;
+        default:
+          console.warn("Unknown input field ID:", event.target.id);
+      }
+      return;
+    }
+
+    // Validate the input to ensure it's a number between 0 and 100
+    let numericValue = Number(val);
+    console.log(`Val: ${val}, Numeric Value: ${numericValue}`);
+    if (numericValue < 0) {
+      numericValue = 0;
+    }
+    if (numericValue > 100) {
+      numericValue = 100;
+    }
+
+    // Update the input value to the validated number
+    event.target.value = numericValue.toString();
+
+    // Update the relevant state based on the input field ID
+    switch (event.target.id) {
+      case "csPlacement":
+        setCsPlacementTestScore(numericValue);
+        break;
+      case "mathPlacement":
+        setMathPlacementTestScore(numericValue);
+        break;
+      case "languagePlacementScore":
+        setLanguagePlacementTestScore(numericValue);
+        break;
+      default:
+        console.warn("Unknown input field ID:", event.target.id);
+    }
+  }
+
   return (
     <div className="page">
       <main className="main">
@@ -161,7 +214,7 @@ export default function PlacementTests() {
               type="number"
               id="csPlacement"
               value={csPlacementTestScore ?? ''}
-              onChange={(e) => setCsPlacementTestScore(e.target.value ? parseInt(e.target.value) : null)}
+              onChange={handleTestScoreChange}
               className={formStyles.input}
               min={0}
               max={100}
@@ -175,7 +228,7 @@ export default function PlacementTests() {
               type="number"
               id="mathPlacement"
               value={mathPlacementTestScore ?? ''}
-              onChange={(e) => setMathPlacementTestScore(e.target.value ? parseInt(e.target.value) : null)}
+              onChange={handleTestScoreChange}
               className={formStyles.input}
               min={0}
               max={100}
@@ -206,7 +259,7 @@ export default function PlacementTests() {
                   type="number"
                   id="languagePlacementScore"
                   value={languagePlacementTestScore ?? ''}
-                  onChange={(e) => setLanguagePlacementTestScore(e.target.value ? parseInt(e.target.value) : null)}
+                  onChange={handleTestScoreChange}
                   className={formStyles.input}
                   min={0}
                   max={100}

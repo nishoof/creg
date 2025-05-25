@@ -2,6 +2,7 @@
 
 import mongoose, { connect, Document, Model } from "mongoose";
 import { isValidMajor } from "./majors";
+import { placementTests } from "./credit";
 
 const uri = process.env.MONGODB_URI;
 if (!uri) {
@@ -134,6 +135,12 @@ export async function addPlacementTests(username: string, tests: { testName: str
 
     // Add each test
     for (const test of tests) {
+        // Validate the test
+        if (!placementTests.has(test.testName))
+            throw new Error(`Invalid placement test name: ${test.testName}`);
+        if (typeof test.testScore !== "number" || test.testScore < 0 || test.testScore > 100)
+            throw new Error(`Invalid placement test score: ${test.testScore}`);
+
         // If the test already exists, update its score. Otherwise, add it
         const existingTest = user.placementTests.find((t) => t.testName === test.testName);
         if (existingTest) {
