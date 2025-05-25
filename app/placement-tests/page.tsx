@@ -1,6 +1,6 @@
 "use client";
 
-import { authenticate, AuthenticatedUser } from '@/auth';
+import { authenticate } from '@/auth';
 import { addPlacementTests, getUserData } from '@/functions/db';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -12,11 +12,12 @@ export default function PlacementTests() {
   const pageTitle = "Placement Tests";
   const pageDescription = "Take your placement tests then enter your test results to see your recommended courses";
 
-  // State for placement test scores
+  // State for placement test scores and success message
   const [csPlacementTestScore, setCsPlacementTestScore] = useState<number | null>(null);
   const [mathPlacementTestScore, setMathPlacementTestScore] = useState<number | null>(null);
   const [languagePlacementTestName, setLanguagePlacementTestName] = useState<string | null>(null);
   const [languagePlacementTestScore, setLanguagePlacementTestScore] = useState<number | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // Auth
   const { data: session } = useSession();
@@ -102,6 +103,8 @@ export default function PlacementTests() {
     }
 
     await addPlacementTests(username, tests);
+
+    setSuccessMessage("Placement test scores saved successfully!");
   }
 
   return (
@@ -175,9 +178,17 @@ export default function PlacementTests() {
           </div>
         </div>
 
+        {/* Button to save the tests to the user's account */}
         <button onClick={savePlacementTests} className={formStyles.button}>
           Save Placement Test Scores
         </button>
+
+        {/* Success message after saving the tests */}
+        {successMessage &&
+          <div className="successMessage">
+            {successMessage}
+          </div>
+        }
       </main>
     </div>
   );
