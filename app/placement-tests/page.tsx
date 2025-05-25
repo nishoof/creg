@@ -38,11 +38,11 @@ export default function PlacementTests() {
 
   // Get user's major from db (needs to be in a useEffect since it is async in a client component)
   // Also get initial placement test scores
-  const [major, setMajor] = useState<string | undefined>(undefined);
+  const [major, setMajor] = useState<string | null | undefined>(undefined); // undefined means loading, null means no major selected
   useEffect(() => {
     async function updateMajorAndTestScores() {
       if (!loggedIn) {
-        setMajor(undefined);
+        setMajor(null);
         return;
       }
 
@@ -83,8 +83,23 @@ export default function PlacementTests() {
     );
   }
 
+  // If the major is still loading, show a loading message
+  if (major === undefined) {
+    return (
+      <div className="page">
+        <main className="main">
+          <div className="titleSection">
+            <h1>{pageTitle}</h1>
+            <p>{pageDescription}</p>
+          </div>
+          <p>Loading your major and placement test scores...</p>
+        </main>
+      </div>
+    );
+  }
+
   // If the user has not selected a major, show a message to select a major
-  if (!major) {
+  if (major == null) {
     return (
       <div className="page">
         <main className="main">
