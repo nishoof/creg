@@ -120,8 +120,8 @@ export async function addAPTest(username: string, test: { testName: string; test
     return "ADDED";
 }
 
-export async function addPlacementTest(username: string, test: { testName: string; testScore: number }) {
-    console.log(`Adding placement test ${test.testName} for user ${username}`);
+export async function addPlacementTests(username: string, tests: { testName: string; testScore: number }[]) {
+    console.log(`Adding placement tests for user ${username}`);
 
     // Find the user in the database
     const user = await User.findOne({ username: username });
@@ -129,20 +129,19 @@ export async function addPlacementTest(username: string, test: { testName: strin
     // If the user does not exist, create the user and restart the process
     if (!user) {
         await createUser(username);
-        return addPlacementTest(username, test);
+        return addPlacementTests(username, tests);
     }
 
-    // Check if a placement test with the same name already exists for the user
-    const existingTest = user.placementTests.find((t) => t.testName === test.testName);
-
-    // If so, update its score
-    if (existingTest) {
-        existingTest.testScore = test.testScore;
-        await user.save();
-        return;
+    // Add each test
+    for (const test of tests) {
+        // If the test already exists, update its score. Otherwise, add it
+        const existingTest = user.placementTests.find((t) => t.testName === test.testName);
+        if (existingTest) {
+            existingTest.testScore = test.testScore;
+        } else {
+            user.placementTests.push(test);
+        }
     }
 
-    // Otherwise, add the new test to the user's placementTests array
-    user.placementTests.push(test);
     await user.save();
 }

@@ -1,17 +1,11 @@
 "use client";
 
 import { authenticate, AuthenticatedUser } from '@/auth';
-import { getUserData } from '@/functions/db';
+import { addPlacementTests, getUserData } from '@/functions/db';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import formStyles from '../form.module.css';
-
-async function getMajor(authenticatedUser: AuthenticatedUser) {
-  const username = authenticatedUser.email.split('@')[0];
-  const userdata = await getUserData(username);
-  return userdata.major;
-}
 
 export default function PlacementTests() {
   // Page title and description
@@ -28,16 +22,24 @@ export default function PlacementTests() {
   const { data: session } = useSession();
   const authenticatedUser = authenticate(session);
   const loggedIn = authenticatedUser !== false;
+  const username = loggedIn ? authenticatedUser.email.split('@')[0] : "";
+
+  /** Helper function, gets the given user's major from the database assuming the user exists */
+  async function getMajor(username: string) {
+    const userdata = await getUserData(username);
+    return userdata.major;
+  }
 
   // Get user's major from db (needs to be in a useEffect since it is async in a client component)
   const [major, setMajor] = useState<string | undefined>(undefined);
   useEffect(() => {
     async function updateMajor() {
-      if (!loggedIn)
-        return;
-
-      const major = await getMajor(authenticatedUser);
-      setMajor(major);
+      if (!loggedIn) {
+        setMajor(undefined);
+      } else {
+        const major = await getMajor(username);
+        setMajor(major);
+      }
     }
 
     updateMajor();
@@ -71,6 +73,35 @@ export default function PlacementTests() {
         </main>
       </div>
     );
+  }
+
+  /** Helper function, saves the user's inputted placement tests to the database */
+  async function savePlacementTests() {
+    if (!loggedIn) {
+      alert("You must be logged in to save your placement test scores.");
+      return;
+    }
+
+    let tests = [];
+    if (csPlacementTestScore !== null) {
+      console.log(`CS Placement Test Score: ${csPlacementTestScore}`);
+      tests.push({ testName: "CSPlacementTest", testScore: csPlacementTestScore });
+    }
+    if (mathPlacementTestScore !== null) {
+      console.log(`Math Placement Test Score: ${mathPlacementTestScore}`);
+      tests.push({ testName: "MathPlacementTest", testScore: mathPlacementTestScore });
+    }
+    if (languagePlacementTestName && languagePlacementTestScore !== null) {
+      console.log(`Language Placement Test: ${languagePlacementTestName}, Score: ${languagePlacementTestScore}`);
+      tests.push({ testName: `${languagePlacementTestName}LanguagePlacementTest`, testScore: languagePlacementTestScore });
+    }
+
+    if (tests.length === 0) {
+      alert("Please enter at least one placement test score.");
+      return;
+    }
+
+    await addPlacementTests(username, tests);
   }
 
   return (
@@ -143,6 +174,10 @@ export default function PlacementTests() {
             </div>
           </div>
         </div>
+
+        <button onClick={savePlacementTests} className={formStyles.button}>
+          Save Placement Test Scores
+        </button>
       </main>
     </div>
   );
