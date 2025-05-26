@@ -16,7 +16,7 @@ export default function UniversityRequirements() {
             <div className="videoWrapper">
               <iframe
                 className="video"
-                src="https://www.youtube.com/embed/pU5SzMZaq64"
+                src="https://www.youtube.com/embed/4_UmbQOVqzU"
                 title="CAS Graduation Requirements"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
