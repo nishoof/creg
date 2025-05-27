@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { ChangeEvent, useEffect, useState } from 'react';
 import formStyles from '../form.module.css';
+import { PlacementTest } from '@/functions/credit';
 
 export default function PlacementTests() {
   // Page title and description
@@ -122,13 +123,28 @@ export default function PlacementTests() {
 
     let tests = [];
     if (csPlacementTestScore !== null) {
-      tests.push({ testName: "CSPlacementTest", testScore: csPlacementTestScore });
+      tests.push({ testName: PlacementTest.CSPlacement, testScore: csPlacementTestScore });
     }
     if (mathPlacementTestScore !== null) {
-      tests.push({ testName: "MathPlacementTest", testScore: mathPlacementTestScore });
+      tests.push({ testName: PlacementTest.MathPlacement, testScore: mathPlacementTestScore });
     }
     if (languagePlacementTestName && languagePlacementTestScore !== null) {
-      tests.push({ testName: `${languagePlacementTestName}LanguagePlacementTest`, testScore: languagePlacementTestScore });
+      switch (languagePlacementTestName) {
+        case "Spanish":
+          tests.push({ testName: PlacementTest.SpanishLanguagePlacement, testScore: languagePlacementTestScore });
+          break;
+        case "French":
+          tests.push({ testName: PlacementTest.FrenchLanguagePlacement, testScore: languagePlacementTestScore });
+          break;
+        case "German":
+          tests.push({ testName: PlacementTest.GermanLanguagePlacement, testScore: languagePlacementTestScore });
+          break;
+        case "Italian":
+          tests.push({ testName: PlacementTest.ItalianLanguagePlacement, testScore: languagePlacementTestScore });
+          break;
+        default:
+          throw new Error(`Invalid language placement test name: ${languagePlacementTestName}`);
+      }
     }
 
     if (tests.length === 0) {

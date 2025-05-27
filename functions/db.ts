@@ -2,7 +2,7 @@
 
 import mongoose, { connect, Document, Model } from "mongoose";
 import { isValidMajor } from "./majors";
-import { placementTests } from "./credit";
+import { PlacementTest } from "./credit";
 
 const uri = process.env.MONGODB_URI;
 if (!uri) {
@@ -121,7 +121,7 @@ export async function addAPTest(username: string, test: { testName: string; test
     return "ADDED";
 }
 
-export async function addPlacementTests(username: string, tests: { testName: string; testScore: number }[]) {
+export async function addPlacementTests(username: string, tests: { testName: PlacementTest; testScore: number }[]) {
     console.log(`Adding placement tests for user ${username}`);
 
     // Find the user in the database
@@ -136,8 +136,6 @@ export async function addPlacementTests(username: string, tests: { testName: str
     // Add each test
     for (const test of tests) {
         // Validate the test
-        if (!placementTests.has(test.testName))
-            throw new Error(`Invalid placement test name: ${test.testName}`);
         if (typeof test.testScore !== "number" || test.testScore < 0 || test.testScore > 100)
             throw new Error(`Invalid placement test score: ${test.testScore}`);
 

@@ -53,8 +53,15 @@ export const apTestCredit: { [key: string]: { score: number; credit: string[] } 
 /** List of all known AP test names */
 export const apTests = Object.keys(apTestCredit);
 
-/** Set of all known placement test names */
-export const placementTests = new Set(["CSPlacement", "MathPlacement", "SpanishLanguagePlacement", "FrenchLanguagePlacement", "GermanLanguagePlacement", "ItalianLanguagePlacement"]);
+/** Enum of all known placement test names */
+export enum PlacementTest {
+    CSPlacement = "CSPlacement",
+    MathPlacement = "MathPlacement",
+    SpanishLanguagePlacement = "SpanishLanguagePlacement",
+    FrenchLanguagePlacement = "FrenchLanguagePlacement",
+    GermanLanguagePlacement = "GermanLanguagePlacement",
+    ItalianLanguagePlacement = "ItalianLanguagePlacement"
+}
 
 /** Returns the credits for a list of AP tests and placement tests. */
 export function getCredit(apTests: Test[], placementTests: Test[]) {
