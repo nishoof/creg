@@ -55,12 +55,13 @@ export const apTests = Object.keys(apTestCredit);
 
 /** Enum of all known placement test names */
 export enum PlacementTest {
-    CSPlacement = "CSPlacement",
-    MathPlacement = "MathPlacement",
-    SpanishLanguagePlacement = "SpanishLanguagePlacement",
-    FrenchLanguagePlacement = "FrenchLanguagePlacement",
-    GermanLanguagePlacement = "GermanLanguagePlacement",
-    ItalianLanguagePlacement = "ItalianLanguagePlacement"
+    // Note: these are the names of placement tests in the databse, and are also displayed to the user
+    CSPlacement = "Computer Science",
+    MathPlacement = "Math",
+    SpanishLanguagePlacement = "Spanish",
+    FrenchLanguagePlacement = "French",
+    GermanLanguagePlacement = "German",
+    ItalianLanguagePlacement = "Italian"
 }
 
 /** Returns the credits for a list of AP tests and placement tests. */

@@ -43,6 +43,13 @@ export default async function Recommendations() {
     </li>
   ));
 
+  // Make placement tests list to show on the page
+  const placementTests = userdata.placementTests.map((test: Test) => (
+    <li key={test.testName}>
+      {test.testName}: {test.testScore}
+    </li>
+  ));
+
   return (
     <div className="page">
       <main className="main">
@@ -82,11 +89,19 @@ export default async function Recommendations() {
               <div className={styles.cardSection}>
                 <h4>AP Tests</h4>
                 <ul className={styles.unstyledList}>
-                  {/* TODO: Placement tests in different list */}
                   {apTests.length > 0 ? (
                     apTests
                   ) : (
                     <li>No AP tests found.</li>
+                  )}
+                </ul>
+
+                <h4>Placement Tests</h4>
+                <ul className={styles.unstyledList}>
+                  {placementTests.length > 0 ? (
+                    placementTests
+                  ) : (
+                    <li>No Placement tests found.</li>
                   )}
                 </ul>
               </div>
