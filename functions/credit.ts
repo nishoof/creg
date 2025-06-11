@@ -71,19 +71,12 @@ export function isLanguagePlacementTest(testName: string): boolean {
         testName === PlacementTest.ItalianLanguagePlacement;
 }
 
-/** Returns the credits for a list of AP tests and placement tests. */
-export function getCredit(apTests: Test[], placementTests: Test[]) {
+/** Returns the credits for a list of AP tests. */
+export function getApCredit(apTests: Test[]) {
     const credits: Set<string> = new Set();
 
     for (const test of apTests) {
-        const credit = getApCredit(test.testName, test.testScore);
-        for (const c of credit) {
-            credits.add(c);
-        }
-    }
-
-    for (const test of placementTests) {
-        const credit = getPlacementCredit(test.testName, test.testScore);
+        const credit = getSingleApCredit(test.testName, test.testScore);
         for (const c of credit) {
             credits.add(c);
         }
@@ -92,38 +85,10 @@ export function getCredit(apTests: Test[], placementTests: Test[]) {
     return credits;
 }
 
-/** Returns the credit for a given AP test and score. */
-function getApCredit(apTest: string, score: number) {
+/** Returns the credit for a single AP test and score. */
+function getSingleApCredit(apTest: string, score: number) {
     const test = apTestCredit[apTest];
     if (!test) return [];
     if (score < test.score) return [];
     return test.credit;
-}
-
-/** Returns the credit for a given placement test and score. */
-function getPlacementCredit(placementTest: string, score: number) {
-    if (placementTest === PlacementTest.CSPlacement) {
-        return getCSPlacementCredit(score);
-    }
-
-    if (placementTest === PlacementTest.MathPlacement || isLanguagePlacementTest(placementTest)) {
-        return [];  // TODO
-    }
-
-    throw new Error(`Invalid placement test name ${placementTest}`);
-}
-
-/** Returns the credit for the CS placement test based on the given score. */
-function getCSPlacementCredit(score: number): string[] {
-    if (score < 0 || score > 100) {
-        throw new Error("Invalid score");
-    }
-
-    if (score >= 75) {
-        return ["CS 110", "CS 111"];
-    } else if (score >= 40) {
-        return ["CS 110"];
-    } else {
-        return [];
-    }
 }

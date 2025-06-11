@@ -1,9 +1,9 @@
 import { auth, authenticate, getUsername } from "@/auth";
 import { Course } from "@/components/Course";
-import { getCredit, Test } from "@/functions/credit";
+import { getApCredit, PlacementTest, Test } from "@/functions/credit";
 import { getUserData } from "@/functions/db";
-import styles from "./page.module.css";
 import { getCSMathRec, getCSRec } from "@/functions/recommender";
+import styles from "./page.module.css";
 
 export default async function Recommendations() {
   // Make sure user is logged in
@@ -30,11 +30,13 @@ export default async function Recommendations() {
   const userdata = await getUserData(username);
 
   // Calculate credits
-  const credits = getCredit(userdata.apTests, userdata.placementTests);
+  const credits = getApCredit(userdata.apTests);
+  const csPlacement = userdata.placementTests.find(test => test.testName === PlacementTest.CSPlacement)?.testScore || 0;
+  const mathPlacement = userdata.placementTests.find(test => test.testName === PlacementTest.MathPlacement)?.testScore || 0;
 
   // Get personalized recommendations
-  const csRecommendation = getCSRec(credits);
-  const csMathRecommendation = getCSMathRec(userdata.placementTests.find(test => test.testName === "Math")?.testScore || 0);
+  const csRecommendation = getCSRec(credits, csPlacement);
+  const csMathRecommendation = getCSMathRec(credits, mathPlacement);
 
   // Make ap tests list to show on the page
   const apTests = userdata.apTests.map((test: Test) => (
