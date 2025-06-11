@@ -64,6 +64,13 @@ export enum PlacementTest {
     ItalianLanguagePlacement = "Italian"
 }
 
+export function isLanguagePlacementTest(testName: string): boolean {
+    return testName === PlacementTest.SpanishLanguagePlacement ||
+        testName === PlacementTest.FrenchLanguagePlacement ||
+        testName === PlacementTest.GermanLanguagePlacement ||
+        testName === PlacementTest.ItalianLanguagePlacement;
+}
+
 /** Returns the credits for a list of AP tests and placement tests. */
 export function getCredit(apTests: Test[], placementTests: Test[]) {
     const credits: Set<string> = new Set();
@@ -99,7 +106,7 @@ function getPlacementCredit(placementTest: string, score: number) {
         return getCSPlacementCredit(score);
     }
 
-    if (placementTest === PlacementTest.MathPlacement || placementTest === PlacementTest.SpanishLanguagePlacement) {
+    if (placementTest === PlacementTest.MathPlacement || isLanguagePlacementTest(placementTest)) {
         return [];  // TODO
     }
 

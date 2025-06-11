@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { ChangeEvent, useEffect, useState } from 'react';
 import formStyles from '../form.module.css';
-import { PlacementTest } from '@/functions/credit';
+import { isLanguagePlacementTest, PlacementTest } from '@/functions/credit';
 
 export default function PlacementTests() {
   // Page title and description
@@ -29,12 +29,12 @@ export default function PlacementTests() {
   /** Helper function, returns the best language test score from the given userdata */
   function getBestLanguageTest(userdata: UserInterface) {
     // Find the language placement test with the highest score
-    const languageTests = userdata.placementTests.filter(test => test.testName.endsWith("LanguagePlacementTest"));
+    const languageTests = userdata.placementTests.filter(test => isLanguagePlacementTest(test.testName));
     if (languageTests.length === 0) return null;
 
     // Sort by score in descending order and return the first one
     const bestTest = languageTests.sort((a, b) => b.testScore - a.testScore)[0];
-    return { name: bestTest.testName.replace("LanguagePlacementTest", ""), score: bestTest.testScore };
+    return bestTest;
   }
 
   // Get user's major from db (needs to be in a useEffect since it is async in a client component)
@@ -55,15 +55,15 @@ export default function PlacementTests() {
       setMajor(major);
 
       // Get placement test scores
-      const csPlacementTest = userdata.placementTests.find(test => test.testName === "CSPlacementTest");
-      const mathPlacementTest = userdata.placementTests.find(test => test.testName === "MathPlacementTest");
+      const csPlacementTest = userdata.placementTests.find(test => test.testName === PlacementTest.CSPlacement);
+      const mathPlacementTest = userdata.placementTests.find(test => test.testName === PlacementTest.MathPlacement);
       const languagePlacementTest = getBestLanguageTest(userdata);
 
       // Update state with the scores
       setCsPlacementTestScore(csPlacementTest ? csPlacementTest.testScore : null);
       setMathPlacementTestScore(mathPlacementTest ? mathPlacementTest.testScore : null);
-      setLanguagePlacementTestName(languagePlacementTest ? languagePlacementTest.name : null);
-      setLanguagePlacementTestScore(languagePlacementTest ? languagePlacementTest.score : null);
+      setLanguagePlacementTestName(languagePlacementTest ? languagePlacementTest.testName : null);
+      setLanguagePlacementTestScore(languagePlacementTest ? languagePlacementTest.testScore : null);
     }
 
     updateMajorAndTestScores();
