@@ -4,6 +4,8 @@ const courseCodeToName: { [key: string]: string } = {
     "CS 112": "Intro to CS II (Java)",
     "CS 221": "C & Systems Programming",
     "CS 245": "Data Structures & Algorithms",
+    "MATH 104": "Algebra for Business & Science",
+    "MATH 105": "Mathematics for Educators",
     "MATH 108": "Precalculus",
     "MATH 109": "Calculus & Analytic Geom I",
     "MATH 201": "Discrete Mathematics",

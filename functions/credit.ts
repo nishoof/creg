@@ -95,8 +95,12 @@ function getApCredit(apTest: string, score: number) {
 
 /** Returns the credit for a given placement test and score. */
 function getPlacementCredit(placementTest: string, score: number) {
-    if (placementTest === "CSPlacement") {
+    if (placementTest === PlacementTest.CSPlacement) {
         return getCSPlacementCredit(score);
+    }
+
+    if (placementTest === PlacementTest.MathPlacement || placementTest === PlacementTest.SpanishLanguagePlacement) {
+        return [];  // TODO
     }
 
     throw new Error(`Invalid placement test name ${placementTest}`);

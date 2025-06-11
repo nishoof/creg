@@ -34,7 +34,7 @@ export default async function Recommendations() {
 
   // Get personalized recommendations
   const csRecommendation = getCSRec(credits);
-  const csMathRecommendation = getCSMathRec(credits);
+  const csMathRecommendation = getCSMathRec(userdata.placementTests.find(test => test.testName === "Math")?.testScore || 0);
 
   // Make ap tests list to show on the page
   const apTests = userdata.apTests.map((test: Test) => (

@@ -1,3 +1,4 @@
+/** Recommends the next course in a pathway based on the user's current credits */
 function getRecFromPathway(credits: Set<string>, pathway: string[]) {
     // If the user doesn't have any credits, recommend the first course in the pathway
     if (credits.size === 0) {
@@ -20,7 +21,18 @@ export function getCSRec(credits: Set<string>) {
     return getRecFromPathway(credits, csPathway);
 }
 
-export function getCSMathRec(credits: Set<string>) {
-    const csMathPathway = ["MATH 108", "MATH 109", "MATH 201", "MATH 202"];
-    return getRecFromPathway(credits, csMathPathway);
+export function getCSMathRec(placementTestScore: number) {
+    if (placementTestScore < 0 || placementTestScore > 100) {
+        throw new Error("Invalid score");
+    }
+
+    if (placementTestScore >= 76) {
+        return "MATH 109";
+    } else if (placementTestScore >= 61) {
+        return "MATH 108";
+    } else if (placementTestScore >= 46) {
+        return "MATH 105";
+    } else {
+        return "MATH 104";
+    }
 }
